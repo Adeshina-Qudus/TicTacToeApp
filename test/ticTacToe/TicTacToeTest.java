@@ -1,7 +1,10 @@
 package ticTacToe;
 
+import exception.InvalidPositionException;
 import org.junit.jupiter.api.Test;
 import players.Player;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,5 +43,24 @@ class TicTacToeTest {
         assertEquals(Values.X, playerOne.getValue());
         assertEquals(Values.O, playerTwo.getValue());
     }
+    @Test
+    public void playerCanMakeMoveTest(){
+        TicTacToe ticTacToe = new TicTacToe();
+        Player playerOne = new Player(Values.X);
+        Player playerTwo = new Player(Values.O);
+        ticTacToe.play(9,playerOne);
+        ticTacToe.play(1,playerTwo);
+        System.out.println(Arrays.deepToString(ticTacToe.gameBoard()));
+    }
+    @Test
+    public void playerCannotMakeMoveInABoxWhereAValueIsTest(){
+        TicTacToe ticTacToe = new TicTacToe();
+        Player playerOne = new Player(Values.X);
+        Player playerTwo = new Player(Values.O);
+        ticTacToe.play(9,playerOne);
+        ticTacToe.play(1,playerTwo);
+        assertThrows(InvalidPositionException.class, () -> ticTacToe.play(1,playerOne));
+    }
+
 
 }
